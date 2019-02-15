@@ -5,6 +5,9 @@ import styles from "./index.css";
 const { Header, Footer, Content } = Layout;
 
 export default function(props) {
+  const selectedKeys = [props.location.pathname];
+  console.log(selectedKeys);
+  
   return (
     // 上中下布局
     <Layout>
@@ -15,15 +18,16 @@ export default function(props) {
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={["2"]}
+          selectedKeys={selectedKeys}
           style={{ lineHeight: "64px" }}
         >
-          <Menu.Item key="1">
+          <Menu.Item key="/">
             <Link to="/">商品</Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="/users">
             <Link to="/users">用户</Link>
           </Menu.Item>
-          <Menu.Item key="3">
+          <Menu.Item key="/about">
             <Link to="/about">关于</Link>
           </Menu.Item>
         </Menu>
