@@ -6,7 +6,6 @@ const { Header, Footer, Content } = Layout;
 
 export default function(props) {
   const selectedKeys = [props.location.pathname];
-  console.log(selectedKeys);
   
   return (
     // 上中下布局
@@ -17,7 +16,6 @@ export default function(props) {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={["2"]}
           selectedKeys={selectedKeys}
           style={{ lineHeight: "64px" }}
         >
