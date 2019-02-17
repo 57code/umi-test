@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Button, Card } from "antd";
+import { Button, Card, Row, Col, Icon } from "antd";
 import { connect } from "dva";
 
 @connect(
   state => ({
-    goodsList: state.goods,
+    courses: state.goods.courses,
     loading: state.loading
   }),
   {
@@ -13,40 +13,60 @@ import { connect } from "dva";
       payload: { title }
     }),
     getList: () => ({
-      type: 'goods/getList'
+      type: "goods/getList"
     })
   }
 )
 class Goods extends Component {
-  componentDidMount(){
-    this.props.getList({foo:'bar'});
+  componentDidMount() {
+    this.props.getList();
   }
   render() {
     // console.log(this.props.loading);
     if (this.props.loading.models.goods) {
-      return <div>加载中...</div>
+      return <div>加载中...</div>;
     }
     return (
       <div>
         {/* 商品列表 */}
-        <div>
-          {this.props.goodsList.map(good => {
+        <Row type="flex" justify="start">
+          {/* {this.state.displayCourses.map((item, index) => { */}
+          {this.props.courses.map((item, index) => {
             return (
-              <Card key={good.title}>
-                <div>{good.title}</div>
-              </Card>
+              <Col key={index} style={{ padding: 10 }} span={6}>
+                {/* {item.name ? ( */}
+                  <Card
+                    extra={
+                      <Icon
+                        onClick={e => this.addCart(e, item)}
+                        type="shopping-cart"
+                      />
+                    }
+                    onClick={() => this.toDetail(item)}
+                    hoverable
+                    title={item.name}
+                    cover={<img src={"/course/" + item.img} />}
+                  >
+                    <Card.Meta
+                      description={
+                        <div>
+                          <span>￥{item.price}</span>
+
+                          <span style={{ float: "right" }}>
+                            <Icon type="user" /> {item.solded}
+                          </span>
+                        </div>
+                      }
+                    />
+                    <div />
+                  </Card>
+                {/* ) : (
+                  <Skeleton active={true} />
+                )} */}
+              </Col>
             );
           })}
-          <div>
-            <Button
-              onClick={() =>
-                this.props.addGood("添加卡片" + new Date().getTime())
-              }
-            >
-              添加卡片
-            </Button>
-          </div>
-        </div>
+        </Row>
       </div>
     );
   }
