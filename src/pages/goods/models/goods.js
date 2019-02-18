@@ -13,8 +13,7 @@ export default {
   },
   effects: {
     *getList(action, { call, put }) {
-      const { data: resData } = yield call(getGoods);
-      const { code, data: courseData } = resData;
+      const { data: {data: courseData} } = yield call(getGoods);
       yield put({ type: "initGoods", payload: courseData });
     }
   },
