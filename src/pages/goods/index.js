@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Button, Card, Row, Col, Icon } from "antd";
+import { Card, Row, Col, Icon } from "antd";
+import { TagSelect } from "ant-design-pro";
 import { connect } from "dva";
 
 @connect(
   state => ({
     courses: state.goods.courses,
+    tags: state.goods.tags,
     loading: state.loading
   }),
   {
@@ -21,20 +23,39 @@ class Goods extends Component {
   componentDidMount() {
     this.props.getList();
   }
+  tagSelectChange = (tags, courses = this.props.courses) => {
+    console.log(tags);
+
+    // let displayCourses = []
+    // tags.forEach(tag=>{
+    //   displayCourses = [...displayCourses,...courses[tag]]
+    // })
+    // this.setState({
+    //   displayCourses
+    // })
+  };
   render() {
-    // console.log(this.props.loading);
     if (this.props.loading.models.goods) {
       return <div>加载中...</div>;
     }
     return (
       <div>
+        {/* 分类标签 */}
+        <TagSelect onChange={this.tagSelectChange}>
+          {this.props.tags.map(tag => {
+            return (
+              <TagSelect.Option key={tag} value={tag}>
+                {tag}
+              </TagSelect.Option>
+            );
+          })}
+        </TagSelect>
         {/* 商品列表 */}
-        <Row type="flex" justify="start">
-          {/* {this.state.displayCourses.map((item, index) => { */}
-          {this.props.courses.map((item, index) => {
+        {/* <Row type="flex" justify="start">
+          {this.state.displayCourses.map((item, index) => {
             return (
               <Col key={index} style={{ padding: 10 }} span={6}>
-                {/* {item.name ? ( */}
+                {item.name ? (
                   <Card
                     extra={
                       <Icon
@@ -60,13 +81,13 @@ class Goods extends Component {
                     />
                     <div />
                   </Card>
-                {/* ) : (
+                ) : (
                   <Skeleton active={true} />
-                )} */}
+                )}
               </Col>
             );
           })}
-        </Row>
+        </Row> */}
       </div>
     );
   }
