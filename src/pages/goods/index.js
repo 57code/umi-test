@@ -10,9 +10,9 @@ import { connect } from "dva";
     // loading: state.loading
   }),
   {
-    addGood: title => ({
-      type: "goods/addGood",
-      payload: { title }
+    addCart: item => ({
+      type: "cart/addCart",
+      payload: item
     }),
     getList: () => ({
       type: "goods/getList"
@@ -31,23 +31,26 @@ class Goods extends Component {
   componentDidMount() {
     this.props.getList();
   }
-  componentWillReceiveProps(props){
+  componentWillReceiveProps(props) {
     // 数据传入时执行一次tagSelectChange
-    if(props.tags.length){
-      this.tagSelectChange(props.tags, props.courses)
+    if (props.tags.length) {
+      this.tagSelectChange(props.tags, props.courses);
     }
   }
   tagSelectChange = (tags, courses = this.props.courses) => {
-    console.log(tags);
     // 过滤出显示数据
     let displayCourses = [];
     tags.forEach(tag => {
       displayCourses = [...displayCourses, ...courses[tag]];
     });
     this.setState({ displayCourses, tags });
-    console.log(displayCourses);
-    
   };
+
+  addCart = (e, item) => {
+    e.stopPropagation();
+    this.props.addCart(item);
+  };
+
   render() {
     // if (this.props.loading.models.goods) {
     //   return <div>加载中...</div>;
@@ -69,14 +72,14 @@ class Goods extends Component {
           {this.state.displayCourses.map((item, index) => {
             return (
               // span=6表示4列
-              <Col key={index} style={{padding:8}} span={6}>
+              <Col key={index} style={{ padding: 8 }} span={6}>
                 {item.name ? (
                   <Card
                     extra={
                       <Icon
                         onClick={e => this.addCart(e, item)}
                         type="shopping-cart"
-                        style={{fontSize: 18}}
+                        style={{ fontSize: 18 }}
                       />
                     }
                     onClick={() => this.toDetail(item)}
