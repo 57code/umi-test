@@ -4,11 +4,59 @@ import dynamic from 'umi/dynamic';
 import renderRoutes from 'umi/_renderRoutes';
 
 
-let Router = DefaultRouter;
+let Router = require('dva/router').routerRedux.ConnectedRouter;
 
 let routes = [
   {
-    "component": () => React.createElement(require('C:/Users/yt037/Desktop/kaikeba/projects/umi-test/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: false })
+    "path": "/",
+    "component": require('../index').default,
+    "exact": true
+  },
+  {
+    "path": "/login",
+    "component": require('../login').default,
+    "exact": true
+  },
+  {
+    "path": "/goods",
+    "component": require('../goods').default,
+    "exact": true
+  },
+  {
+    "path": "/about",
+    "component": require('../about').default,
+    "Routes": [require('../../../routes/PrivateRoute.js').default],
+    "exact": true
+  },
+  {
+    "path": "/users",
+    "component": require('../users/_layout').default,
+    "routes": [
+      {
+        "path": "/users/",
+        "component": require('../users/index').default,
+        "exact": true
+      },
+      {
+        "path": "/users/:id",
+        "component": require('../users/$id').default,
+        "exact": true
+      },
+      {
+        "component": require('../NotFound').default,
+        "exact": true
+      },
+      {
+        "component": () => React.createElement(require('C:/Users/yt037/Desktop/kaikeba/projects/umi-test/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+      }
+    ]
+  },
+  {
+    "component": require('../NotFound').default,
+    "exact": true
+  },
+  {
+    "component": () => React.createElement(require('C:/Users/yt037/Desktop/kaikeba/projects/umi-test/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
   }
 ];
 window.g_routes = routes;
