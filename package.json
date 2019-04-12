@@ -7,11 +7,14 @@
     "start": "umi dev",
     "build": "umi build"
   },
-  "author": "",
+  "author": "57code",
   "license": "ISC",
   "dependencies": {
     "antd": "^3.13.0",
-    "axios": "^0.18.0",
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "umi": "^2.6.13",
     "umi-plugin-react": "^1.4.2"
   }
 }
