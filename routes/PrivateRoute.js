@@ -1,8 +1,8 @@
 import Redirect from "umi/redirect";
+import { connect } from "dva";
 
-
-export default props => {
-  if (Math.random() > 0.5) {
+export default connect(state => ({ isLogin: !!state.user.token }))(props => {
+  if (!props.isLogin) {
     console.log(props);
 
     return (
@@ -20,4 +20,4 @@ export default props => {
       {props.children}
     </div>
   );
-};
+});
