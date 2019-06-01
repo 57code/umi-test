@@ -1,10 +1,10 @@
 import Redirect from "umi/redirect";
+import { connect } from "dva";
 
-
-export default props => {
-  if (Math.random() > 0.5) {
-    console.log(props);
-
+export default connect(state => ({ isLogin: !!state.user.token }))(props => {
+  console.log(props.isLogin);
+  
+  if (!props.isLogin) {
     return (
       <Redirect
         to={{
@@ -16,8 +16,7 @@ export default props => {
   }
   return (
     <div>
-      <div>PrivateRoute (routes/PrivateRoute.js)</div>
       {props.children}
     </div>
   );
-};
+});

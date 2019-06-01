@@ -9,24 +9,31 @@ export default {
     ]
   ],
   routes: [
-    { path: "/", component: "./index" },
     { path: "/login", component: "./login" },
-    { path: "/goods", component: "./goods/index" },
     {
-      path: "/about",
-      component: "./about",
-      Routes: ["./routes/PrivateRoute.js"]
-    },
-    {
-      path: "/users",
-      component: "./users/_layout",
+      path: "/",
+      component: "../layouts",
       routes: [
-        { path: "/users/", component: "./users/index" },
-        { path: "/users/:id", component: "./users/$id" }
+        // 移动之前路由配置到这里
+        { path: "/", component: "./index" },
+        { path: "/goods", component: "./goods/index" },
+        {
+          path: "/about",
+          component: "./about",
+          Routes: ["./routes/PrivateRoute.js"]
+        },
+        {
+          path: "/users",
+          component: "./users/_layout",
+          routes: [
+            { path: "/users/", component: "./users/index" },
+            { path: "/users/:id", component: "./users/$id" }
+          ]
+        },
+        {
+          component: "./404"
+        }
       ]
-    },
-    {
-      component: "./404"
     }
   ]
 };
