@@ -213,6 +213,6 @@ export default {
         code: 0,
         data: course
       });
-    }, 2500);
+    }, 1000);
   }
 };
