@@ -1,10 +1,11 @@
 
 import styles from './$id.css';
 
-export default function(props) {
+export default function({match}) {
   return (
     <div className={styles.normal}>
-      <h1>user id: {props.match.params.id}</h1>
+      <h1>Page $id</h1>
+      {match.params.id}
     </div>
   );
 }

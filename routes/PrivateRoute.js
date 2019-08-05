@@ -1,23 +1,21 @@
-import Redirect from "umi/redirect";
+import Redirect from 'umi/redirect';
 
-
-export default props => {
-  if (Math.random() > 0.5) {
-    console.log(props);
-
+export default function PrivateRoute(props) {
+  // 判断用户登录状态
+  if (new Date().getDay() % 2 === 1) {
     return (
       <Redirect
         to={{
           pathname: "/login",
-          state: { from: props.location.pathname } // 传递重定向地址
+          state: { redirect: props.location.pathname }
         }}
       />
     );
   }
   return (
     <div>
-      <div>PrivateRoute (routes/PrivateRoute.js)</div>
+      PrivateRoute
       {props.children}
     </div>
   );
-};
+}

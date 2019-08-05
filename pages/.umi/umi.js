@@ -1,5 +1,5 @@
 import './polyfills';
-
+import '../../global.js';
 import '@tmp/initHistory';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -10,7 +10,7 @@ window.g_plugins = require('umi/_runtimePlugin');
 window.g_plugins.init({
   validKeys: ['patchRoutes','render','rootContainer','modifyRouteProps','onRouteChange','dva',],
 });
-window.g_plugins.use(require('../../../node_modules/umi-plugin-dva/lib/runtime'));
+window.g_plugins.use(require('../../node_modules/umi-plugin-dva/lib/runtime'));
 
 require('@tmp/initDva');
 
