@@ -4,8 +4,5 @@ export default {
         dva: true,
         antd: true
       }]
-    ],
-    // routes: [
-    //     {path:'/',component:'./login'}
-    // ]
+    ]
   }
